@@ -46,8 +46,9 @@ Visualizador.grafico_lineas(nombres_jugadores, puntuaciones_jugadores, partidas)
 # ---------------------------------------------------------------
 nombre_buscado = "Ana"
 
-# TODO: usando NumPy, encontrar la ubicación de nombre_buscado en nombres_jugadores
-ubicacion = '''completar'''
+# np.where devuelve los índices donde se cumple la condición;
+# [0] toma el array de índices (filas) y [0] el primero, que es la ubicación
+ubicacion = np.where(nombres_jugadores == nombre_buscado)[0][0]
 
 puntuaciones_buscado = puntuaciones_jugadores[ubicacion]
 jugador1 = Jugador(nombre_buscado, puntuaciones_buscado)
