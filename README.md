@@ -33,5 +33,5 @@ Instalar las librerías necesarias:
    ```bash
    pip install numpy matplotlib
 
-- **NumPy:** procesamiento de datos numéricos y cálculos estadísticos mediante arrays.
-- **Matplotlib:** generación de gráficos para representar los resultados del campeonato.
+- NumPy: procesamiento de datos numéricos y cálculos estadísticos mediante arrays.
+- Matplotlib: generación de gráficos para representar los resultados del campeonato.
