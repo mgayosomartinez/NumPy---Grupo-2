@@ -76,26 +76,21 @@ class Campeonato:
     # ------------------------------------------------------------------
     # INVESTIGACIÓN: dos métodos de NumPy que no se hayan visto en clase
     # ------------------------------------------------------------------
-    def estadistica_investigada_1(self):
+    def puntajes_unicos(self):
         """
-        Mediana de los puntajes de cada partida.
-
-        Retorna un array con la mediana de cada partida.
+        Devuelve un array con todos los puntajes 
+        diferentes que aparecen en el campeonato, sin repetirlos.
         """
-        # np.median devuelve el valor central de los datos una vez ordenados.
-        # Con axis=0 se calcula una mediana por cada columna (partida).
-        # Aporta información sobre el campeonato: muestra el rendimiento
-        # "típico" de cada partida sin que lo distorsionen puntajes
-        # extremos (un jugador muy bueno o muy malo). Si la mediana difiere
-        # mucho del promedio de esa partida, hay valores atípicos.
-        return np.median(self.puntaje_jugadores, axis=0)
+        return np.unique(self.puntaje_jugadores)
 
-    def estadistica_investigada_2(self):
+    def rango_puntaje(self):
         """
-        Jugador más irregular: el de mayor diferencia entre su mejor
-        y su peor puntaje.
+        Identifica al jugador con mayor diferencia entre su puntaje
+        más alto y más bajo.
 
-        Retorna una tupla (nombre, rango).
+        También informa sus puntajes extremos y su evolución
+        a lo largo del campeonato.
+
         """
         # np.ptp ("peak to peak") devuelve máximo - mínimo. Con axis=1 se
         # calcula una vez por cada fila (jugador).
@@ -103,6 +98,32 @@ class Campeonato:
         # cada jugador. Un rango chico indica un rendimiento constante y uno
         # grande, un jugador con partidas muy buenas y otras muy malas.
         # Se usa argmax sobre los rangos para identificar al más irregular.
+        
         rangos = np.ptp(self.puntaje_jugadores, axis=1)
         indice = rangos.argmax()
-        return self.nombres_jugadores[indice], rangos[indice]
+
+        nombre = self.nombres_jugadores[indice]
+
+        puntajes = self.puntaje_jugadores[indice]
+        puntaje_minimo = np.min(puntajes)
+        puntaje_maximo = np.max(puntajes)
+
+        primer_puntaje = puntajes[0]
+        ultimo_puntaje = puntajes[-1]
+
+        if ultimo_puntaje > primer_puntaje:
+            evolucion = "Mostró una mejora a lo largo del campeonato."
+        elif ultimo_puntaje < primer_puntaje:
+            evolucion = "Su rendimiento empeoró a lo largo del campeonato."
+        else:
+            evolucion = "Mantuvo el mismo puntaje entre la primera y la última partida."
+
+        rango = rangos[indice]
+
+        return (
+            f"  Jugador con mayor variación de puntajes: {nombre}\n"
+            f"  Puntaje más bajo: {puntaje_minimo}\n"
+            f"  Puntaje más alto: {puntaje_maximo}\n"
+            f"  Evolución: {evolucion}\n"
+            f"  Rango de puntajes: {rango} puntos \n"
+        )

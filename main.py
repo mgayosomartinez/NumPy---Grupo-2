@@ -18,20 +18,21 @@ print("Partidas:", partidas)
 campeonato = Campeonato(nombres_jugadores, puntuaciones_jugadores, partidas)
 
 campeon, puntaje_mejor = campeonato.mejor_jugador()
-print(f"El mejor jugador es {campeon} con un promedio de {puntaje_mejor}")
+print(f"\nEl mejor jugador es {campeon} con un promedio de {puntaje_mejor}")
 
 nombre_peor, puntaje_peor = campeonato.peor_jugador()
 print(f"El peor jugador es {nombre_peor} con un promedio de {puntaje_peor}")
 
 print(f"Promedio del campeonato: {campeonato.promedio_general()}")
 
-print(f"Promedio por partida: {campeonato.promedios_por_partida()}")
+print(f"Promedio por partida: {campeonato.promedios_por_partida()}\n")
 
 # ---------------------------------------------------------------
 # Métodos de NumPy investigados
 # ---------------------------------------------------------------
-print(f"Estadística investigada 1: {campeonato.estadistica_investigada_1()}")
-print(f"Estadística investigada 2: {campeonato.estadistica_investigada_2()}")
+print(f"Puntajes diferentes: {campeonato.puntajes_unicos()} \n")
+print('Analisis Regularidad')
+print(campeonato.rango_puntaje())
 
 # ---------------------------------------------------------------
 # Gráficas
@@ -44,13 +45,14 @@ Visualizador.grafico_lineas(nombres_jugadores, puntuaciones_jugadores, partidas)
 # ---------------------------------------------------------------
 # Crear un jugador a partir de los datos del campeonato
 # ---------------------------------------------------------------
+print('Creacion jugador:')
 nombre_buscado = "Ana"
 
 # np.where devuelve los índices donde se cumple la condición;
 # [0] toma el array de índices (filas) y [0] el primero, que es la ubicación
 ubicacion = np.where(nombres_jugadores == nombre_buscado)[0][0]
-
+print(f'    Ubicacion en array de jugadores:{ubicacion}')
 puntuaciones_buscado = puntuaciones_jugadores[ubicacion]
 jugador1 = Jugador(nombre_buscado, puntuaciones_buscado)
-print(jugador1.get_nombre())
-print(jugador1.promedio())
+print(f'    Jugador creado:{jugador1.get_nombre()}')
+print(f'    Promedio:{jugador1.promedio()}')
